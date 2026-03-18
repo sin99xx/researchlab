@@ -253,9 +253,9 @@ That is the real lesson.
 The browser learned how to keep pages alive.
 A lot of applications never learned what that means.
 
-[1]: https://web.dev/articles/bfcache?utm_source=chatgpt.com "Back/forward cache | Articles | web.dev"
-[2]: https://developer.mozilla.org/en-US/docs/Glossary/bfcache?utm_source=chatgpt.com "bfcache - Glossary - MDN"
-[3]: https://w3ctag.github.io/bfcache-guide/?utm_source=chatgpt.com "Supporting BFCached Documents - GitHub Pages"
-[4]: https://developer.chrome.com/docs/web-platform/bfcache-ccns?utm_source=chatgpt.com "Enabling bfcache for Cache-Control: no-store - Chrome Developers"
-[5]: https://jorianwoltjer.com/blog/p/research/nonce-csp-bypass-using-disk-cache?utm_source=chatgpt.com "Nonce CSP bypass using Disk Cache - Jorian Woltjer"
-[6]: https://developer.chrome.com/docs/web-platform/bfcache-notrestoredreasons/?utm_source=chatgpt.com "Back/forward cache notRestoredReasons API | Web Platform | Chrome for ..."
+[1]: https://web.dev/articles/bfcache "Back/forward cache | Articles | web.dev"
+[2]: https://developer.mozilla.org/en-US/docs/Glossary/bfcache "bfcache - Glossary - MDN"
+[3]: https://w3ctag.github.io/bfcache-guide/ "Supporting BFCached Documents - GitHub Pages"
+[4]: https://developer.chrome.com/docs/web-platform/bfcache-ccns "Enabling bfcache for Cache-Control: no-store - Chrome Developers"
+[5]: https://jorianwoltjer.com/blog/p/research/nonce-csp-bypass-using-disk-cache "Nonce CSP bypass using Disk Cache - Jorian Woltjer"
+[6]: https://developer.chrome.com/docs/web-platform/bfcache-notrestoredreasons/ "Back/forward cache notRestoredReasons API | Web Platform | Chrome for ..."
