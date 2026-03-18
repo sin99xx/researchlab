@@ -139,13 +139,13 @@ That is where the elite stuff lives. Not in memorizing headers, but in asking on
 
 That is the place to start.
 
-[1]: https://datatracker.ietf.org/doc/html/rfc6265?utm_source=chatgpt.com "RFC 6265 - HTTP State Management Mechanism - IETF Datatracker"
-[2]: https://developer.mozilla.org/en-US/docs/Web/Security/Practical_implementation_guides/Cookies?utm_source=chatgpt.com "Secure cookie configuration - Security - MDN"
-[3]: https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-rfc6265bis?utm_source=chatgpt.com "draft-ietf-httpbis-rfc6265bis-22"
-[4]: https://developer.mozilla.org/en-US/docs/Web/Privacy/Guides/Privacy_sandbox/Partitioned_cookies?utm_source=chatgpt.com "Cookies Having Independent Partitioned State (CHIPS) - MDN Web Docs"
-[5]: https://fetch.spec.whatwg.org/?utm_source=chatgpt.com "Fetch Standard"
-[6]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Access-Control-Allow-Credentials?utm_source=chatgpt.com "Access-Control-Allow-Credentials header - HTTP | MDN"
-[7]: https://portswigger.net/web-security/cors/access-control-allow-origin?utm_source=chatgpt.com "CORS and the Access-Control-Allow-Origin response header"
-[8]: https://developer.mozilla.org/en-US/docs/Web/Security/Practical_implementation_guides/CORS?utm_source=chatgpt.com "Cross-Origin Resource Sharing (CORS) configuration - MDN"
-[9]: https://developer.mozilla.org/en-US/docs/Web/API/Headers/getSetCookie?utm_source=chatgpt.com "Headers: getSetCookie () method - Web APIs | MDN"
-[10]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS?utm_source=chatgpt.com "Cross-Origin Resource Sharing (CORS) - HTTP | MDN"
+[1]: https://datatracker.ietf.org/doc/html/rfc6265 "RFC 6265 - HTTP State Management Mechanism - IETF Datatracker"
+[2]: https://developer.mozilla.org/en-US/docs/Web/Security/Practical_implementation_guides/Cookies "Secure cookie configuration - Security - MDN"
+[3]: https://datatracker.ietf.org/doc/html/draft-ietf-httpbis-rfc6265bis "draft-ietf-httpbis-rfc6265bis-22"
+[4]: https://developer.mozilla.org/en-US/docs/Web/Privacy/Guides/Privacy_sandbox/Partitioned_cookies "Cookies Having Independent Partitioned State (CHIPS) - MDN Web Docs"
+[5]: https://fetch.spec.whatwg.org/ "Fetch Standard"
+[6]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Reference/Headers/Access-Control-Allow-Credentials "Access-Control-Allow-Credentials header - HTTP | MDN"
+[7]: https://portswigger.net/web-security/cors/access-control-allow-origin "CORS and the Access-Control-Allow-Origin response header"
+[8]: https://developer.mozilla.org/en-US/docs/Web/Security/Practical_implementation_guides/CORS "Cross-Origin Resource Sharing (CORS) configuration - MDN"
+[9]: https://developer.mozilla.org/en-US/docs/Web/API/Headers/getSetCookie "Headers: getSetCookie () method - Web APIs | MDN"
+[10]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS "Cross-Origin Resource Sharing (CORS) - HTTP | MDN"
