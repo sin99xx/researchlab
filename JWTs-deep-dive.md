@@ -76,8 +76,8 @@ The enduring lesson of JWT is not that JSON is dangerous or that web developers 
 
 If the answer includes algorithm choice, key class, key source, token type, or authorization context, the system is probably review-worthy. That was true when RFC 8725 was published, and the direction of `rfc8725bis` and the deprecation work around `none` and `RSA1_5` suggests the standards process agrees. JWT is still useful. But in 2026, anyone serious about bug hunting should stop treating it as a token format and start treating it as what it really is: a hostile input language for verifiers. ([RFC Editor][2])
 
-[1]: https://www.rfc-editor.org/rfc/rfc7515?utm_source=chatgpt.com "RFC 7515: JSON Web Signature (JWS)"
-[2]: https://www.rfc-editor.org/rfc/rfc8725?utm_source=chatgpt.com "RFC 8725: JSON Web Token Best Current Practices"
-[3]: https://www.rfc-editor.org/rfc/rfc7519?utm_source=chatgpt.com "RFC 7519: JSON Web Token (JWT)"
-[4]: https://datatracker.ietf.org/wg/jose/about/?utm_source=chatgpt.com "Javascript Object Signing and Encryption (jose)"
-[5]: https://datatracker.ietf.org/doc/draft-ietf-oauth-rfc8725bis/?utm_source=chatgpt.com "draft-ietf-oauth-rfc8725bis-04 - JSON Web Token Best Current Practices"
+[1]: https://www.rfc-editor.org/rfc/rfc7515 "RFC 7515: JSON Web Signature (JWS)"
+[2]: https://www.rfc-editor.org/rfc/rfc8725 "RFC 8725: JSON Web Token Best Current Practices"
+[3]: https://www.rfc-editor.org/rfc/rfc7519 "RFC 7519: JSON Web Token (JWT)"
+[4]: https://datatracker.ietf.org/wg/jose/about/ "Javascript Object Signing and Encryption (jose)"
+[5]: https://datatracker.ietf.org/doc/draft-ietf-oauth-rfc8725bis/ "draft-ietf-oauth-rfc8725bis-04 - JSON Web Token Best Current Practices"
