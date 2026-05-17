@@ -8,8 +8,6 @@ That checklist works on the SSRF where there's **one** fetcher.
 
 This is about the SSRF where there's two — where every item on that checklist gets implemented correctly, the team is genuinely proud of their validator, and the bug ships anyway because **a second piece of code, sitting one layer deeper, also knows how to make outbound HTTP requests, and nobody told it about the rules.**
 
-You've seen me make this exact shape of argument before. The [BFCache note](./BFCache-for-bug-hunters.md) was about navigation not really destroying a page, while applications still assumed it did. The [cookies/CORS note](./Cookies-and-CORS.md) was about teams treating headers as guarantees the spec never gave them. The [JWT note](./JWTs-deep-dive.md) was about untrusted metadata getting to influence verification before verification had finished. The [SMTPUTF8 note](<./Rfc-6531(SMTPUTF8).md>) was about subsystems disagreeing on whether two addresses were the same identity. They're all the same family of bug:
-
 **Two parts of a system disagreeing about whose job it was to enforce the boundary.**
 
 Inner-parser SSRF is that family showing up in outbound network requests. Once you see the shape, you find it everywhere.
