@@ -1,0 +1,188 @@
+---
+
+Most bug bounty writeups are recycled. Real bugs are hiding in the specs.
+A lot of people in bug bounty keep reading the same stuff.
+Same recon tips. Same payload lists. Same "how I found XSS" stories. Same fake-deep writeups that sound smart but do not actually teach you how real systems work.
+That is exactly where I got stuck for a while.
+I was past beginner level, but I still felt like I was trapped in that middle stage where you know enough to test things, but not enough to consistently spot deeper bugs. I could do the usual workflow. I could try common auth tests, common web bugs, common edge cases. But most of it felt surface-level.
+At some point I realized the problem was not that I was lazy or missing tools.
+The problem was that I was mostly learning bug bounty content, not learning the actual protocols and systems behind the bugs.
+That changed when I started reading specs.
+Not another hype thread. Not another "top 10 bug bounty tips" post. Actual documentation.
+And this bug came directly from that.
+
+---
+
+The bug was in a Google login flow
+The target supported Sign in with Google through OpenID Connect.
+At first glance, nothing looked strange. User clicks the Google login button, Google authenticates them, the application receives identity information, and the user gets logged in.
+Pretty normal.
+But the problem was in what happened after Google returned the identity data.
+The application treated the user's email address as their identity.
+That sounds small, but it is exactly where the bug was.
+Because in OpenID Connect, email is not the stable identity.
+
+---
+
+The important part most implementations get wrong
+When an OpenID Connect provider authenticates a user, it returns claims inside an ID token.
+A lot of developers see something like this and immediately focus on the email:
+email = admin@clinic-example.com
+Then the app says:
+same email = same user
+That is the mistake.
+The stable identity in OIDC is the pair:
+iss + sub
+Where iss is the issuer, and sub is the subject identifier for that user.
+That pair is what should be used to bind the local account.
+Not the email claim.
+The email is just an attribute. It is useful, but it is not permanent. It can be reassigned, recycled, recreated, or returned under a different real-world owner later.
+Once you understand that, the entire bug becomes obvious.
+
+---
+
+What the vulnerable logic looked like
+The application was basically doing this:
+Google returns email = admin@org.com
+application looks for existing account with email = admin@org.com
+application logs that Google user into the existing account
+Instead of doing this:
+Google returns iss + sub
+application binds that stable identity to the account
+future logins must match the same iss + sub
+So the app was not really asking, "is this the same Google identity as before?"
+It was asking, "does this login come back with the same email string?"
+Those are not the same question.
+And when an app confuses those two things, identity takeover becomes possible.
+
+---
+
+Why email is a bad identity key here
+A lot of developers still think email is "unique enough."
+It is not.
+It is only temporarily associated with a person. It is not guaranteed to stay with them forever.
+That matters a lot in SSO and federated login flows.
+There are two very practical ways this breaks.
+
+---
+
+Scenario 1: same organization, same email, different person
+Imagine an organization uses a mailbox like:
+admin@clinic-example.com
+First, that email belongs to User A.
+User A signs in through Google and creates an account on the target platform. The application now links that account to admin@clinic-example.com.
+Later, User A leaves the organization.
+The organization deletes or deprovisions that Google Workspace user.
+Some time later, a different employee is created with the exact same email address:
+admin@clinic-example.com
+But this is now User B.
+Different human.
+Different Google account.
+Different subject identifier.
+If the application only checks the returned email claim, it sees the same email string and assumes this must be the same person as before.
+So it logs User B into User A's old account.
+Same email text. Completely different identity.
+That is not a weird edge case. That is an account takeover caused by broken identity binding.
+
+---
+
+Scenario 2: expired domain and recreated mailboxes
+The second case is even more interesting.
+An organization shuts down and its domain expires.
+Later, somebody else registers that same domain again and recreates old-looking mailboxes on it.
+For example:
+admin@old-practice.com
+If the target platform still has an account historically tied to that email, and its Google login flow only trusts the email claim, the new owner of that mailbox can end up logged into the historical account.
+That means a completely different person, under completely different ownership, can inherit access just because the same email string came back again.
+Once you look at it from a protocol point of view, the bug is very straightforward.
+The application treated a recyclable attribute as if it were a permanent identity.
+
+---
+
+Why this bug matters
+This kind of issue gets underestimated because it does not look flashy.
+There is no script popup.
+No SQL syntax error.
+No "hacked" screen.
+No payload that makes people clap on Twitter.
+But the impact is real.
+If the account contains sensitive messages, stored documents, private communications, profile data, or privileged actions, then logging the wrong person into that account is a full compromise of confidentiality and integrity for that user.
+And the dangerous part is that the login itself looks legitimate from the application's point of view.
+The app thinks Google authenticated the user correctly.
+Google did authenticate the user correctly.
+The problem is that the application linked the authenticated Google account to the wrong local user because it trusted the wrong identifier.
+That is why this class of bug is so important.
+Nothing is "broken" at the provider level.
+The break happens in the application's identity binding logic.
+
+---
+
+Why I found it by reading docs, not by running tools
+No scanner is going to tell you:
+"this application is binding OpenID Connect users by email instead of stable subject identity."
+That is not how these bugs show up.
+You find them when you stop treating authentication as a black box and start asking protocol questions.
+Questions like:
+What exactly is this app using as the account key?
+Is it trusting email or trusting iss + sub?
+What happens if the mailbox changes owners?
+What happens if the domain expires?
+What happens if the same email comes back under a different Google identity?
+Those are not payload questions.
+Those are protocol questions.
+And that is why I keep saying real bugs are often hiding in specs, docs, RFCs, and provider guidance that most people ignore.
+A lot of bug bounty content teaches people how to repeat testing patterns.
+Reading protocols teaches you how to recognize when the application's logic is fundamentally wrong.
+
+---
+
+The root cause in one sentence
+The root cause was simple:
+The application treated this:
+email
+as identity, when it should have treated this:
+iss + sub
+as identity.
+That single mistake is enough to turn a normal Google login flow into an account takeover condition.
+
+---
+
+What the correct implementation should do
+The correct design is not complicated.
+The application should bind accounts to the stable identifier returned by the identity provider, which in OIDC means the issuer and subject pair.
+Email can still be stored.
+Email can still be displayed.
+Email can still be used for communication.
+But email should not be the thing that decides whether two identities are the same user.
+That decision belongs to the stable provider identity, not to a mutable attribute that can change ownership over time.
+
+---
+
+The bigger lesson
+This bug is a good example of something I wish more hunters understood earlier.
+A lot of real vulnerabilities do not come from clever payloads.
+They come from knowing how a protocol is supposed to work, then noticing that the implementation quietly violates that contract.
+That is where a lot of strong bugs live.
+OAuth mistakes.
+OIDC account confusion.
+SAML validation issues.
+JWT handling mistakes.
+Session binding flaws.
+Account recovery edge cases.
+None of these are as glamorous as people make XSS look online, but they are often much more meaningful.
+And most of them become easier to spot once you stop only reading writeups and start reading the docs those writeups never mention.
+
+---
+
+Final thought
+This finding did not come from some magic trick.
+It came from understanding one boring but important truth:
+email is not a stable identity in OpenID Connect.
+Once you really understand that, you start seeing the bug everywhere an application makes identity decisions on the email claim alone.
+That is the difference between recycled content and real bug hunting.
+One teaches you what other people already found.
+The other teaches you how to see what they missed.
+
+---
+
+#bugbounty #bugbountytips #cybersecurity #hackerone
