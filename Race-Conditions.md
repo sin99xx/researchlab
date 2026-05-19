@@ -1,4 +1,4 @@
-# Race Conditions Are Not Race Conditions
+# Race Conditions Are Not *only 😂 Race Conditions
 
 *Concurrency is the cheapest way to wedge a state machine apart. The window is never the bug.*
 
