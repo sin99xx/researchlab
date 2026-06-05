@@ -62,5 +62,5 @@ KOHO ··········· rank #2
 
 ```
 $ sinner --status
-still mid-journey. the work speaks.
+building something big.
 ```
