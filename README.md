@@ -26,7 +26,7 @@ The handle is `sinner`. No competition. I only see me.
 
 ## CVEs — four assigned
 
-No dupes, no triage wins. Each is a real primitive against shipping software.
+Each is a against shipping software.
 
 | | target | class | what it gives you |
 |---|---|---|---|
