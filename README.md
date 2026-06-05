@@ -1,88 +1,45 @@
-<p align="center">
-  <img src="./banner.svg" alt="sin99xx — security researcher" width="100%">
-</p>
+```
+                  ptr ─┐                           ptr ─┐
+    ┌───────────┐     │             ┌───────────┐     │
+    │  object   │◄────┘             │  object   │◄ ─ ─┘  dangling
+    │  (live)   │                   │  ⌀ FREED  │
+    └───────────┘                   └───────────┘
+      ① alloc                         ② free → tcache[n]
 
-<p align="center">
-  <a href="https://hackerone.com/sin99xx"><code>hackerone.com/sin99xx</code></a>
-  &nbsp;·&nbsp; web / api &nbsp;·&nbsp; llm app sec &nbsp;·&nbsp; virtualization internals &nbsp;·&nbsp; logic bugs
-</p>
+                  ptr ─┐                           ptr ─┐
+    ┌───────────┐     │             ┌───────────┐     │
+    │ ATTACKER  │◄ ─ ─┘  reclaim    │ ATTACKER  │◄────┘
+    │  payload  │                   │  payload  │   use → control
+    └───────────┘                   └───────────┘
+      ③ realloc same-size             ④ use-after-free
+```
 
-<br>
+# sin99xx · Warisjeet Singh
 
-Self-taught. I write the tooling, then I read the code. The handle is `sinner` — no competition, I only see me.
+Security researcher. I find memory-safety and logic bugs in software people trust — then I write the tooling that finds the next one. The diagram above is `CVE-2026-48004`.
 
-<br>
+The handle is `sinner`. No competition. I only see me.
 
-## ▌ CVEs
-
-> Four assigned. Each one is a real primitive against shipping software — no dupes, no triage wins.
-
-<table>
-<tr>
-<td width="160" valign="top">
-
-**`CVE-2026-48004`**
-QEMU
-<sub>heap UAF</sub>
-
-</td>
-<td valign="top">
-
-**Use-after-free in device emulation.** The bug class behind guest-to-host escape in virtualized and multi-tenant cloud — a freed object reachable from guest-controlled state is the front half of a hypervisor break.
-<br><sub>fixed upstream · <a href="https://github.com/qemu/qemu/commit/5a8da7e979f1f56b1cab82c2354833f309f1a78f"><code>5a8da7e</code></a></sub>
-
-</td>
-</tr>
-<tr>
-<td width="160" valign="top">
-
-**`CVE-2026-48840`**
-Exim
-<sub>pre-auth disclosure</sub>
-
-</td>
-<td valign="top">
-
-**Uninitialised-stack leak in the PROXY-protocol parser**, reachable before authentication. Usable as an ASLR-defeat primitive — it weakens exploit mitigations on internet-facing mail servers before anyone logs in.
-<br><sub><a href="https://exim.org/static/doc/security/EXIM-Security-2026-05-19.1.txt">EXIM-Security-2026-05-19.1</a></sub>
-
-</td>
-</tr>
-<tr>
-<td width="160" valign="top">
-
-**`CVE-2025-5009`**
-Google Gemini · iOS
-<sub>info disclosure</sub>
-
-</td>
-<td valign="top">
-
-**Snippet-share leaked the entire conversation history** instead of the selected snippet. Private user data exposed in a consumer AI product at scale.
-
-</td>
-</tr>
-<tr>
-<td width="160" valign="top">
-
-**`CVE-2026-4XXXX`**
-Joomla
-<sub>reserved</sub>
-
-</td>
-<td valign="top">
-
-Disclosure pending.
-
-</td>
-</tr>
-</table>
+`web / api` &nbsp;·&nbsp; `llm app sec` &nbsp;·&nbsp; `virtualization internals` &nbsp;·&nbsp; `state-machine & logic bugs` &nbsp;·&nbsp; [`hackerone.com/sin99xx`](https://hackerone.com/sin99xx)
 
 <br>
 
-## ▌ Automated vulnerability research
+## CVEs — four assigned
 
-I build AI-agent frameworks that drive zero-day discovery through large codebases — orchestration that triages reachable surface and surfaces candidate bugs for a human to confirm. The CVEs above came out of this loop.
+No dupes, no triage wins. Each is a real primitive against shipping software.
+
+| | target | class | what it gives you |
+|---|---|---|---|
+| **`CVE-2026-48004`** | QEMU | heap UAF | Freed object reachable from guest-controlled state in device emulation — the front half of a guest-to-host escape in virtualized, multi-tenant cloud. → fixed upstream [`5a8da7e`](https://github.com/qemu/qemu/commit/5a8da7e979f1f56b1cab82c2354833f309f1a78f) |
+| **`CVE-2026-48840`** | Exim | pre-auth leak | Uninitialised-stack leak in the PROXY-protocol parser, reachable before auth. An ASLR-defeat primitive that weakens mitigations on internet-facing mail servers before anyone logs in. → [advisory](https://exim.org/static/doc/security/EXIM-Security-2026-05-19.1.txt) |
+| **`CVE-2025-5009`** | Gemini · iOS | info disclosure | Snippet-share leaked the *entire* conversation history instead of the selected snippet. Private user data exposed in a consumer AI product at scale. |
+| **`CVE-2026-4XXXX`** | Joomla | reserved | Disclosure pending. |
+
+<br>
+
+## Automated vulnerability research
+
+I build AI-agent frameworks that drive zero-day discovery through large codebases — orchestration that triages reachable attack surface and surfaces candidates for a human to confirm. The CVEs above came out of this loop.
 
 ```
 agents narrow the search.  the exploitation is mine.
@@ -90,17 +47,20 @@ agents narrow the search.  the exploitation is mine.
 
 <br>
 
-## ▌ Bug bounty
+## Bug bounty
 
 Accepted findings across private and public programs on HackerOne.
 
-<table>
-<tr><td><b>KOHO</b></td><td><code>rank #2</code></td></tr>
-</table>
+```
+KOHO ··········· rank #2
+```
 
-`KOHO` · `1win` · `DoorDash` · `Monero` · `Whoop` · `Eightfold` · and private programs.
-Also reported a vulnerability in the Bugcrowd platform itself.
+`KOHO` · `1win` · `DoorDash` · `Monero` · `Whoop` · `Eightfold` · private programs
+— and a finding against the Bugcrowd platform itself.
 
 <br>
 
-<p align="center"><sub>still mid-journey · the work speaks</sub></p>
+```
+$ sinner --status
+still mid-journey. the work speaks.
+```
