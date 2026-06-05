@@ -17,6 +17,9 @@ $ cat focus.txt
 > Virtualization internals
 > Business-logic & state-machine bugs
 ```
+### Automated Vulnerability Research & AI Orchestration
+
+Designed and deployed custom AI-agent frameworks to automate zero-day discovery in complex codebases.
 
 ### CVEs
 
