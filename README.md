@@ -8,11 +8,13 @@
 
 ```
 $ whoami
+
 sin99xx — I break things for a living and write up why they broke.
 Web apps, AI systems, virtualization. Still figuring out the exact
 title, but the vulnerabilities are real.
 
 $ cat focus.txt
+
 > Web / API security 
 > AI / LLM application security
 > Virtualization internals 
