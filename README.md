@@ -76,7 +76,7 @@ h1     hackerone.com/sin99xx
 
 This isn't a side hobby — it's 12–15 hour/day on the things above, self-funded, no employer behind it. If something I shipped saved you a CVE or taught you a primitive, you can put weight behind the next one.
 
-→ **[Sponsor the work](https://github.com/sponsors/sin99xx)** · it buys research time, not coffee.
+→ **[Sponsor the work](mailto:sin99xx@wearehackerone.com)** · it buys research time, not coffee.
 
 <br>
 
