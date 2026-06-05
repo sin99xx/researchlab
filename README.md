@@ -26,7 +26,7 @@ The handle is `sinner`. No competition. I only see me.
 
 ## CVEs — four assigned
 
-Each is a against shipping software.
+Each is against shipping software.
 
 | | target | class | what it gives you |
 |---|---|---|---|
@@ -60,7 +60,27 @@ KOHO ··········· rank #2
 
 <br>
 
+## Reach me
+
+Open to the right problem — research, disclosure, or something worth building. If the work resonates, say so.
+
+```
+$ sinner --contact
+mail   sin99xx@wearehackerone.com
+h1     hackerone.com/sin99xx
+```
+
+<br>
+
+### Back the research
+
+This isn't a side hobby — it's 12–15 hour/day on the things above, self-funded, no employer behind it. If something I shipped saved you a CVE or taught you a primitive, you can put weight behind the next one.
+
+→ **[Sponsor the work](https://github.com/sponsors/sin99xx)** · it buys research time, not coffee.
+
+<br>
+
 ```
 $ sinner --status
-building something big.
+Building something big.
 ```
