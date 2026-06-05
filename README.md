@@ -45,7 +45,6 @@ KOHO           rank #2
 
 ### Where to find me
 
-- Email — sinxx198@gmail.com
 - HackerOne — [@sin99xx](https://hackerone.com/sin99xx)
 
 ---
