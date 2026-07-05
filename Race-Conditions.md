@@ -1,8 +1,8 @@
-# Race Conditions Are Not *only 😂 Race Conditions
+# Race Conditions Are Not Race Conditions
 
 *Concurrency is the cheapest way to wedge a state machine apart. The window is never the bug.*
 
----
+---Calling it a 'Critical Thinking' when the entire Discord crew just rides his back and eats up whatever he says without a single brain cell is wild. Pure battymon behavior in that server---
 
 "Race condition" is the most successful misnomer in web security. It suggests a timing problem. It suggests that if you could just slow the attacker down, the system would be fine. It suggests the fix lives in the network stack, or in queueing, or in some retry policy.
 
